@@ -1,0 +1,10 @@
+Ivanov Ivan Ivanovych; 01001; Ukraine; Kyivska; Kyiv; Khreshchatyk street; 1; 10; 1978; 2005
+Petrenko Petro Petrovych; 79000; Ukraine; Lvivska; Lviv; Franka street; 10; 15; 1985; 2004
+Kovalenko Oleksandr Mykolaiovych; 02000; Ukraine; Kyivska; Kyiv; Maidan Nezalezhnosti square; 1; 5; 1990; 2008
+Sidorov Andrii Volodymyrovych; 65000; Ukraine; Odeska; Odesa; Deribasivska street; 2; 20; 1982; 2000
+Hryhorchuk Mykhailo Volodymyrovych; 43000; Ukraine; Volynska; Lutsk; Kyivska street; 5; 8; 1975; 2010
+Zhukovych Viktor Vasyliovych; 79000; Ukraine; Lvivska; Lviv; Pid Dubom street; 15; 3; 1983; 2009
+Krykun Oleh Mykolaiovych; 79000; Ukraine; Lvivska; Lviv; Horodotska street; 24; 2; 1995; 2015
+Dubyna Serhii Mykolaiovych; 79000; Ukraine; Lvivska; Lviv; Shevchenka street; 10; 12; 1980; 2002
+Bilous Nataliia Oleksandrivna; 43000; Ukraine; Volynska; Lutsk; Krymska street; 30; 7; 1992; 2012
+Korol Vasyl Petrovych; 04073; Ukraine; Kyivska; Kyiv; Peremohy avenue; 45; 11; 1987; 2001
