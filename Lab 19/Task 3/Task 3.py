@@ -28,11 +28,20 @@ class ImageManipulationApp:
         self.crop_entry = Entry(root)
         self.crop_entry.pack()
 
+        self.resize_label = Label(root, text="Enter Resize Dimensions (width, height):")
+        self.resize_label.pack()
+
+        self.resize_entry = Entry(root)
+        self.resize_entry.pack()
+
         self.rotate_button = Button(root, text="Rotate", command=self.rotate_image)
         self.rotate_button.pack()
 
         self.crop_button = Button(root, text="Crop", command=self.crop_image)
         self.crop_button.pack()
+
+        self.resize_button = Button(root, text="Resize", command=self.resize_image)
+        self.resize_button.pack()
 
         self.overlay_button = Button(root, text="Overlay", command=self.overlay_images)
         self.overlay_button.pack()
@@ -69,6 +78,18 @@ class ImageManipulationApp:
                     print("Please enter four comma-separated coordinates.")
             except ValueError:
                 print("Please enter valid numerical coordinates.")
+
+    def resize_image(self):
+        if self.original_image:
+            try:
+                dimensions = [int(dimension) for dimension in self.resize_entry.get().split(",")]
+                if len(dimensions) == 2:
+                    resized_image = self.original_image.resize((dimensions[0], dimensions[1]))
+                    self.show_image(resized_image)
+                else:
+                    print("Please enter two comma-separated dimensions.")
+            except ValueError:
+                print("Please enter valid numerical dimensions.")
 
     def overlay_images(self):
         if self.original_image:
