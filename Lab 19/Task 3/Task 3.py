@@ -37,51 +37,51 @@ class ImageManipulationApp:
 
         # Labels and Entries
         self.rotation_label = Label(root, text="Enter Rotation Angle:")
-        self.rotation_label.grid(row=3, column=0)
+        self.rotation_label.grid(row=3, column=0, pady=5)
 
         self.rotation_entry = Entry(root)
-        self.rotation_entry.grid(row=3, column=1)
+        self.rotation_entry.grid(row=3, column=1, pady=5)
 
         self.crop_label = Label(root, text="Enter Crop Coordinates (x1, y1, x2, y2):")
-        self.crop_label.grid(row=4, column=0)
+        self.crop_label.grid(row=3, column=2, pady=5)
 
         self.crop_entry = Entry(root)
-        self.crop_entry.grid(row=4, column=1)
+        self.crop_entry.grid(row=3, column=3, pady=5)
 
         self.resize_label = Label(root, text="Enter Resize Dimensions (width, height):")
-        self.resize_label.grid(row=5, column=0)
+        self.resize_label.grid(row=4, column=0, pady=5)
 
         self.resize_entry = Entry(root)
-        self.resize_entry.grid(row=5, column=1)
+        self.resize_entry.grid(row=4, column=1, pady=5)
 
         self.opacity_label = Label(root, text="Enter Opacity (0-255):")
-        self.opacity_label.grid(row=6, column=0)
+        self.opacity_label.grid(row=4, column=2, pady=5)
 
         self.opacity_entry = Entry(root)
-        self.opacity_entry.grid(row=6, column=1)
+        self.opacity_entry.grid(row=4, column=3, pady=5)
 
         # Listboxes
         self.orientation_label = Label(root, text="Choose Orientation:")
-        self.orientation_label.grid(row=3, column=2)
+        self.orientation_label.grid(row=5, column=0, pady=5)
 
         self.orientation_listbox = Listbox(root, selectmode="single", height=7)
         orientations = ["FLIP_LEFT_RIGHT", "FLIP_TOP_BOTTOM", "ROTATE_90", "ROTATE_180", "ROTATE_270", "TRANSPOSE", "TRANSVERSE"]
         for orientation in orientations:
             self.orientation_listbox.insert(END, orientation)
-        self.orientation_listbox.grid(row=3, column=3)
+        self.orientation_listbox.grid(row=5, column=1, pady=5)
 
         self.filter_label = Label(root, text="Choose Filter:")
-        self.filter_label.grid(row=4, column=2)
+        self.filter_label.grid(row=5, column=2, pady=5)
 
         self.filter_listbox = Listbox(root, selectmode="single", height=3)
         filters = ["BLUR", "CONTOUR", "DETAIL"]
         for filter_name in filters:
             self.filter_listbox.insert(END, filter_name)
-        self.filter_listbox.grid(row=4, column=3)
+        self.filter_listbox.grid(row=5, column=3, pady=5)
 
         # Info Label
         self.info_label = Label(root, text="File Information:")
-        self.info_label.grid(row=5, column=2, columnspan=2)
+        self.info_label.grid(row=6, column=0, columnspan=4, pady=5)
 
     def load_image(self):
         self.image_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.gif")])
