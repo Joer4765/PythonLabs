@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd0521ff-1d19-4560-b385-dee648a8aa0d" name="Changes" comment="added image crop">
+    <list default="true" id="fd0521ff-1d19-4560-b385-dee648a8aa0d" name="Changes" comment="added image resize">
       <change beforePath="$PROJECT_DIR$/Lab 19/Task 3/Task 3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab 19/Task 3/Task 3.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -267,7 +267,7 @@
       <workItem from="1699887548933" duration="1023000" />
       <workItem from="1699888598299" duration="1276000" />
       <workItem from="1700049781220" duration="16000" />
-      <workItem from="1700662562087" duration="5917000" />
+      <workItem from="1700662562087" duration="6024000" />
     </task>
     <task id="LOCAL-00001" summary="at long last">
       <option name="closed" value="true" />
@@ -293,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700668517287</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added image resize">
+      <option name="closed" value="true" />
+      <created>1700668557622</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1700668557622</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,7 +322,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="at long last" />
     <MESSAGE value="added image crop" />
-    <option name="LAST_COMMIT_MESSAGE" value="added image crop" />
+    <MESSAGE value="added image resize" />
+    <option name="LAST_COMMIT_MESSAGE" value="added image resize" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

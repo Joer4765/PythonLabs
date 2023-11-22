@@ -1,5 +1,6 @@
-from tkinter import Tk, Canvas, Button, PhotoImage, filedialog, Label, Entry
-from PIL import Image, ImageTk
+from tkinter import Tk, Canvas, Button, PhotoImage, filedialog, Label, Entry, Listbox, END
+from PIL import Image, ImageTk, ImageOps
+
 
 class ImageManipulationApp:
     def __init__(self, root):
@@ -34,6 +35,16 @@ class ImageManipulationApp:
         self.resize_entry = Entry(root)
         self.resize_entry.pack()
 
+        self.orientation_label = Label(root, text="Choose Orientation:")
+        self.orientation_label.pack()
+
+        self.orientation_listbox = Listbox(root, selectmode="single", height=7)
+        orientations = ["FLIP_LEFT_RIGHT", "FLIP_TOP_BOTTOM", "ROTATE_90", "ROTATE_180", "ROTATE_270", "TRANSPOSE",
+                        "TRANSVERSE"]
+        for orientation in orientations:
+            self.orientation_listbox.insert(END, orientation)
+        self.orientation_listbox.pack()
+
         self.rotate_button = Button(root, text="Rotate", command=self.rotate_image)
         self.rotate_button.pack()
 
@@ -42,6 +53,9 @@ class ImageManipulationApp:
 
         self.resize_button = Button(root, text="Resize", command=self.resize_image)
         self.resize_button.pack()
+
+        self.mirror_button = Button(root, text="Mirror", command=self.mirror_image)
+        self.mirror_button.pack()
 
         self.overlay_button = Button(root, text="Overlay", command=self.overlay_images)
         self.overlay_button.pack()
@@ -91,6 +105,33 @@ class ImageManipulationApp:
             except ValueError:
                 print("Please enter valid numerical dimensions.")
 
+    def mirror_image(self):
+        if self.original_image:
+            selected_index = self.orientation_listbox.curselection()
+            if selected_index:
+                orientation = self.orientation_listbox.get(selected_index)
+                if orientation == "FLIP_LEFT_RIGHT":
+                    mirrored_image = ImageOps.mirror(self.original_image)
+                    self.show_image(mirrored_image)
+                elif orientation == "FLIP_TOP_BOTTOM":
+                    mirrored_image = ImageOps.flip(self.original_image)
+                    self.show_image(mirrored_image)
+                elif orientation == "ROTATE_90":
+                    mirrored_image = self.original_image.transpose(Image.ROTATE_90)
+                    self.show_image(mirrored_image)
+                elif orientation == "ROTATE_180":
+                    mirrored_image = self.original_image.transpose(Image.ROTATE_180)
+                    self.show_image(mirrored_image)
+                elif orientation == "ROTATE_270":
+                    mirrored_image = self.original_image.transpose(Image.ROTATE_270)
+                    self.show_image(mirrored_image)
+                elif orientation == "TRANSPOSE":
+                    mirrored_image = self.original_image.transpose(Image.TRANSPOSE)
+                    self.show_image(mirrored_image)
+                elif orientation == "TRANSVERSE":
+                    mirrored_image = self.original_image.transpose(Image.TRANSVERSE)
+                    self.show_image(mirrored_image)
+
     def overlay_images(self):
         if self.original_image:
             overlay_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.gif")])
@@ -99,6 +140,7 @@ class ImageManipulationApp:
                 overlay_image = overlay_image.resize(self.original_image.size)
                 result_image = Image.alpha_composite(self.original_image.convert("RGBA"), overlay_image.convert("RGBA"))
                 self.show_image(result_image)
+
 
 if __name__ == "__main__":
     root = Tk()
