@@ -1,6 +1,5 @@
 from tkinter import Tk, Canvas, Button, PhotoImage, filedialog, Label, Entry, Listbox, END
-from PIL import Image, ImageTk, ImageOps
-
+from PIL import Image, ImageTk, ImageFilter, ImageOps
 
 class ImageManipulationApp:
     def __init__(self, root):
@@ -39,11 +38,22 @@ class ImageManipulationApp:
         self.orientation_label.pack()
 
         self.orientation_listbox = Listbox(root, selectmode="single", height=7)
-        orientations = ["FLIP_LEFT_RIGHT", "FLIP_TOP_BOTTOM", "ROTATE_90", "ROTATE_180", "ROTATE_270", "TRANSPOSE",
-                        "TRANSVERSE"]
+        orientations = ["FLIP_LEFT_RIGHT", "FLIP_TOP_BOTTOM", "ROTATE_90", "ROTATE_180", "ROTATE_270", "TRANSPOSE", "TRANSVERSE"]
         for orientation in orientations:
             self.orientation_listbox.insert(END, orientation)
         self.orientation_listbox.pack()
+
+        self.filter_label = Label(root, text="Choose Filter:")
+        self.filter_label.pack()
+
+        self.filter_listbox = Listbox(root, selectmode="single", height=3)
+        filters = ["BLUR", "CONTOUR", "DETAIL"]
+        for filter_name in filters:
+            self.filter_listbox.insert(END, filter_name)
+        self.filter_listbox.pack()
+
+        self.apply_filter_button = Button(root, text="Apply Filter", command=self.apply_filter)
+        self.apply_filter_button.pack()
 
         self.rotate_button = Button(root, text="Rotate", command=self.rotate_image)
         self.rotate_button.pack()
@@ -132,6 +142,22 @@ class ImageManipulationApp:
                     mirrored_image = self.original_image.transpose(Image.TRANSVERSE)
                     self.show_image(mirrored_image)
 
+    def apply_filter(self):
+        if self.original_image:
+            selected_index = self.filter_listbox.curselection()
+            if selected_index:
+                filter_name = self.filter_listbox.get(selected_index)
+                filtered_image = self.apply_selected_filter(filter_name)
+                self.show_image(filtered_image)
+
+    def apply_selected_filter(self, filter_name):
+        if filter_name == "BLUR":
+            return self.original_image.filter(ImageFilter.BLUR)
+        elif filter_name == "CONTOUR":
+            return self.original_image.filter(ImageFilter.CONTOUR)
+        elif filter_name == "DETAIL":
+            return self.original_image.filter(ImageFilter.DETAIL)
+
     def overlay_images(self):
         if self.original_image:
             overlay_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.gif")])
@@ -140,7 +166,6 @@ class ImageManipulationApp:
                 overlay_image = overlay_image.resize(self.original_image.size)
                 result_image = Image.alpha_composite(self.original_image.convert("RGBA"), overlay_image.convert("RGBA"))
                 self.show_image(result_image)
-
 
 if __name__ == "__main__":
     root = Tk()
