@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from function import *
 from help_funcs import *
+import re
 
 root = tk.Tk()
 
@@ -21,11 +21,10 @@ output_text.focus()
 output_text['state'] = 'disabled'
 
 
-def func(input_array) -> list:
+def func(input_array: list) -> list:
     for i in range(len(input_array)):
         for j in range(len(input_array[i])):
-            if input_array[i][j].isdigit():
-                input_array[i][j] = '!'
+            input_array[i][j] = re.sub(r'\d', r'!', input_array[i][j])
     return input_array
 
 

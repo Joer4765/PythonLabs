@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import datetime
 
 
 class Date:
@@ -30,22 +31,6 @@ class Date:
                     self.day = 28 + self.day
             else:
                 self.day = 30 + self.day
-
-    def is_valid(self):
-        if not (1 <= self.month <= 12):
-            return False
-        if not (1 <= self.day <= 31):
-            return False
-        if self.month in [4, 6, 9, 11] and self.day == 31:
-            return False
-        if self.month == 2:
-            if (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0):
-                if not (1 <= self.day <= 29):
-                    return False
-            else:
-                if not (1 <= self.day <= 28):
-                    return False
-        return True
 
     def __str__(self):
         return f"{self.day}/{self.month}/{self.year}"
@@ -83,9 +68,6 @@ class DateApp(tk.Tk):
         decrease_button = tk.Button(self, text="Decrease Date", command=self.decrease_date)
         decrease_button.grid(row=4, column=1)
 
-        quit_button = tk.Button(self, text="Quit", command=self.quit)
-        quit_button.grid(row=5, column=0)
-
         self.label = tk.Label(self, text="")
         self.label.grid(row=6, column=0, columnspan=2)
 
@@ -99,12 +81,9 @@ class DateApp(tk.Tk):
             return
 
         date = Date(day, month, year)
-        if not date.is_valid():
-            messagebox.showerror("Error", "The entered date is not valid.")
-            self.date = None
-        else:
-            self.date = date
-            self.label.config(text=str(date))
+
+        self.date = date
+        self.label.config(text=str(date))
 
     def delete_date(self):
         self.date = None
@@ -121,6 +100,55 @@ class DateApp(tk.Tk):
             self.label.config(text=str(self.date))
 
 
+class Employee(Date):
+    def __init__(self, name, year, month, day):
+        super().__init__(year, month, day)
+        self.name = name
+
+    def years_of_employment(self):
+        current_year = int(datetime.date.today().year)
+
+        delta = current_year - self.year
+        return delta
+
+    def __str__(self):
+        return f"Name: {self.name}, Employment Date: {self.year}/{self.month}/{self.day}"
+
+
+class EmployeeApp(DateApp):
+    def __init__(self):
+        super().__init__()
+        self.employee = None
+
+        name_label = tk.Label(self, text="Name:")
+        name_label.grid(row=5, column=0)
+        self.name_entry = tk.Entry(self)
+        self.name_entry.grid(row=5, column=1)
+
+        create_button = tk.Button(self, text="Create Employee", command=self.create_employee)
+        create_button.grid(row=6, column=0)
+
+        years_button = tk.Button(self, text="Years of Employment", command=self.years_of_employment)
+        years_button.grid(row=6, column=1)
+
+        self.label = tk.Label(self, text="")
+        self.label.grid(row=7, column=0, columnspan=2)
+
+    def create_employee(self):
+        name = self.name_entry.get()
+        year = int(self.year_entry.get())
+        month = int(self.month_entry.get())
+        day = int(self.day_entry.get())
+        self.employee = Employee(name, year, month, day)
+        self.label.config(text=str(self.employee))
+
+    def years_of_employment(self):
+        if self.employee is not None:
+            years = self.employee.years_of_employment()
+            self.label.config(text=f"Years of Employment: {years}")
+
+
 if __name__ == "__main__":
-    app = DateApp()
+    app = EmployeeApp()
     app.mainloop()
+

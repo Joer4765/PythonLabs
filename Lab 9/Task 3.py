@@ -1,6 +1,7 @@
 import tkinter as tk
 import re
 
+
 def open_file():
     filepath = 'TF_3.txt'
     with open(filepath, 'r') as file:
