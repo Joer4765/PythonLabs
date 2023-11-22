@@ -55,6 +55,9 @@ class ImageManipulationApp:
         self.apply_filter_button = Button(root, text="Apply Filter", command=self.apply_filter)
         self.apply_filter_button.pack()
 
+        self.info_label = Label(root, text="File Information:")
+        self.info_label.pack()
+
         self.rotate_button = Button(root, text="Rotate", command=self.rotate_image)
         self.rotate_button.pack()
 
@@ -75,6 +78,7 @@ class ImageManipulationApp:
         if self.image_path:
             self.original_image = Image.open(self.image_path)
             self.show_image(self.original_image)
+            self.display_file_info()
 
     def show_image(self, image):
         image = ImageTk.PhotoImage(image)
@@ -88,6 +92,7 @@ class ImageManipulationApp:
                 angle = float(self.rotation_entry.get())
                 rotated_image = self.original_image.rotate(angle)
                 self.show_image(rotated_image)
+                self.display_file_info()
             except ValueError:
                 print("Please enter a valid rotation angle.")
 
@@ -98,6 +103,7 @@ class ImageManipulationApp:
                 if len(coordinates) == 4:
                     cropped_image = self.original_image.crop(coordinates)
                     self.show_image(cropped_image)
+                    self.display_file_info()
                 else:
                     print("Please enter four comma-separated coordinates.")
             except ValueError:
@@ -110,6 +116,7 @@ class ImageManipulationApp:
                 if len(dimensions) == 2:
                     resized_image = self.original_image.resize((dimensions[0], dimensions[1]))
                     self.show_image(resized_image)
+                    self.display_file_info()
                 else:
                     print("Please enter two comma-separated dimensions.")
             except ValueError:
@@ -123,24 +130,31 @@ class ImageManipulationApp:
                 if orientation == "FLIP_LEFT_RIGHT":
                     mirrored_image = ImageOps.mirror(self.original_image)
                     self.show_image(mirrored_image)
+                    self.display_file_info()
                 elif orientation == "FLIP_TOP_BOTTOM":
                     mirrored_image = ImageOps.flip(self.original_image)
                     self.show_image(mirrored_image)
+                    self.display_file_info()
                 elif orientation == "ROTATE_90":
                     mirrored_image = self.original_image.transpose(Image.ROTATE_90)
                     self.show_image(mirrored_image)
+                    self.display_file_info()
                 elif orientation == "ROTATE_180":
                     mirrored_image = self.original_image.transpose(Image.ROTATE_180)
                     self.show_image(mirrored_image)
+                    self.display_file_info()
                 elif orientation == "ROTATE_270":
                     mirrored_image = self.original_image.transpose(Image.ROTATE_270)
                     self.show_image(mirrored_image)
+                    self.display_file_info()
                 elif orientation == "TRANSPOSE":
                     mirrored_image = self.original_image.transpose(Image.TRANSPOSE)
                     self.show_image(mirrored_image)
+                    self.display_file_info()
                 elif orientation == "TRANSVERSE":
                     mirrored_image = self.original_image.transpose(Image.TRANSVERSE)
                     self.show_image(mirrored_image)
+                    self.display_file_info()
 
     def apply_filter(self):
         if self.original_image:
@@ -149,6 +163,7 @@ class ImageManipulationApp:
                 filter_name = self.filter_listbox.get(selected_index)
                 filtered_image = self.apply_selected_filter(filter_name)
                 self.show_image(filtered_image)
+                self.display_file_info()
 
     def apply_selected_filter(self, filter_name):
         if filter_name == "BLUR":
@@ -166,6 +181,13 @@ class ImageManipulationApp:
                 overlay_image = overlay_image.resize(self.original_image.size)
                 result_image = Image.alpha_composite(self.original_image.convert("RGBA"), overlay_image.convert("RGBA"))
                 self.show_image(result_image)
+                self.display_file_info()
+
+    def display_file_info(self):
+        if self.image_path:
+            filename = self.image_path
+            file_info = f"File Information:\nFilename: {filename}\nFormat: {self.original_image.format}\nMode: {self.original_image.mode}\nWidth: {self.original_image.width}\nHeight: {self.original_image.height}"
+            self.info_label.config(text=file_info)
 
 if __name__ == "__main__":
     root = Tk()
