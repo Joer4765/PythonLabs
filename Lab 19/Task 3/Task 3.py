@@ -1,7 +1,6 @@
 from tkinter import Tk, Canvas, Button, PhotoImage, filedialog, Label, Entry
 from PIL import Image, ImageTk
 
-
 class ImageManipulationApp:
     def __init__(self, root):
         self.root = root
@@ -23,8 +22,17 @@ class ImageManipulationApp:
         self.rotation_entry = Entry(root)
         self.rotation_entry.pack()
 
+        self.crop_label = Label(root, text="Enter Crop Coordinates (x1, y1, x2, y2):")
+        self.crop_label.pack()
+
+        self.crop_entry = Entry(root)
+        self.crop_entry.pack()
+
         self.rotate_button = Button(root, text="Rotate", command=self.rotate_image)
         self.rotate_button.pack()
+
+        self.crop_button = Button(root, text="Crop", command=self.crop_image)
+        self.crop_button.pack()
 
         self.overlay_button = Button(root, text="Overlay", command=self.overlay_images)
         self.overlay_button.pack()
@@ -50,6 +58,18 @@ class ImageManipulationApp:
             except ValueError:
                 print("Please enter a valid rotation angle.")
 
+    def crop_image(self):
+        if self.original_image:
+            try:
+                coordinates = [int(coord) for coord in self.crop_entry.get().split(",")]
+                if len(coordinates) == 4:
+                    cropped_image = self.original_image.crop(coordinates)
+                    self.show_image(cropped_image)
+                else:
+                    print("Please enter four comma-separated coordinates.")
+            except ValueError:
+                print("Please enter valid numerical coordinates.")
+
     def overlay_images(self):
         if self.original_image:
             overlay_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.gif")])
@@ -58,7 +78,6 @@ class ImageManipulationApp:
                 overlay_image = overlay_image.resize(self.original_image.size)
                 result_image = Image.alpha_composite(self.original_image.convert("RGBA"), overlay_image.convert("RGBA"))
                 self.show_image(result_image)
-
 
 if __name__ == "__main__":
     root = Tk()
