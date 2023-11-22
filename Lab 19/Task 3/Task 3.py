@@ -1,4 +1,4 @@
-from tkinter import Tk, Canvas, Button, PhotoImage, filedialog, Label, Entry, Listbox, END
+from tkinter import Tk, Canvas, Button, filedialog, Label, Entry, Listbox, END
 from PIL import Image, ImageTk, ImageFilter, ImageOps
 
 class ImageManipulationApp:
@@ -72,6 +72,9 @@ class ImageManipulationApp:
 
         self.overlay_button = Button(root, text="Overlay", command=self.overlay_images)
         self.overlay_button.pack()
+
+        self.save_button = Button(root, text="Save Image", command=self.save_image)
+        self.save_button.pack()
 
     def load_image(self):
         self.image_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.gif")])
@@ -188,6 +191,16 @@ class ImageManipulationApp:
             filename = self.image_path
             file_info = f"File Information:\nFilename: {filename}\nFormat: {self.original_image.format}\nMode: {self.original_image.mode}\nWidth: {self.original_image.width}\nHeight: {self.original_image.height}"
             self.info_label.config(text=file_info)
+
+    def save_image(self):
+        if self.current_image:
+            save_path = filedialog.asksaveasfilename(defaultextension=".jpg",
+                                                     filetypes=[("All files", "*.*"), ("PNG files", "*.png"),
+                                                                ("JPEG files", "*.jpg")])
+            if save_path:
+                img_pil = ImageTk.getimage(self.current_image)
+                img_pil.save(save_path)
+
 
 if __name__ == "__main__":
     root = Tk()
