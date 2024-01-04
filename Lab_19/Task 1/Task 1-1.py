@@ -4,7 +4,7 @@ import tkinter as tk
 def show_month():
     m = int(entry.get())
 
-    match (m % 12):
+    match (m % 12 - 1):
 
         case 0:
             month = 'January'

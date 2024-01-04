@@ -1,6 +1,7 @@
 from tkinter import Tk, Canvas, Button, filedialog, Label, Entry, Listbox, END
 from PIL import Image, ImageTk, ImageFilter, ImageOps
 
+
 class ImageManipulationApp:
     def __init__(self, root):
         self.root = root
@@ -65,7 +66,8 @@ class ImageManipulationApp:
         self.orientation_label.grid(row=5, column=0, pady=5)
 
         self.orientation_listbox = Listbox(root, selectmode="single", height=7)
-        orientations = ["FLIP_LEFT_RIGHT", "FLIP_TOP_BOTTOM", "ROTATE_90", "ROTATE_180", "ROTATE_270", "TRANSPOSE", "TRANSVERSE"]
+        orientations = ["FLIP_LEFT_RIGHT", "FLIP_TOP_BOTTOM", "ROTATE_90", "ROTATE_180", "ROTATE_270", "TRANSPOSE",
+                        "TRANSVERSE"]
         for orientation in orientations:
             self.orientation_listbox.insert(END, orientation)
         self.orientation_listbox.grid(row=5, column=1, pady=5)
